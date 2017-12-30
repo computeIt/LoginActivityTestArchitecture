@@ -1,5 +1,8 @@
 package com.sheygam.loginarchitectureexample.di.application;
 
+import com.sheygam.loginarchitectureexample.di.login.LoginComponent;
+import com.sheygam.loginarchitectureexample.di.login.LoginModule;
+
 import dagger.Component;
 
 /**
@@ -7,4 +10,5 @@ import dagger.Component;
  */
 @Component(modules = {AppModule.class})
 public interface AppComponent {
+    LoginComponent plus(LoginModule loginModule);
 }
