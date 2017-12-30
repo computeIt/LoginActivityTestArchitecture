@@ -11,17 +11,23 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.sheygam.loginarchitectureexample.App;
 import com.sheygam.loginarchitectureexample.R;
 import com.sheygam.loginarchitectureexample.business.login.LoginInteractor;
 import com.sheygam.loginarchitectureexample.data.LoginStoreRepository;
 import com.sheygam.loginarchitectureexample.data.LoginWebRepository;
+import com.sheygam.loginarchitectureexample.di.login.LoginModule;
 import com.sheygam.loginarchitectureexample.presentation.login.presenter.ILoginPresenter;
 import com.sheygam.loginarchitectureexample.presentation.login.presenter.LoginPresenter;
+
+import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView, View.OnClickListener {
-    private ILoginPresenter presenter;
+    @Inject
+    ILoginPresenter presenter;
+
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
     private Button loginBtn, registrationBtn;
@@ -30,13 +36,15 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Handler handler = new Handler();
-        Gson gson = new Gson();
-        OkHttpClient client = new OkHttpClient();
-        LoginWebRepository webRepository = new LoginWebRepository(gson,client);
-        LoginStoreRepository loginStoreRepository = new LoginStoreRepository(this);
-        LoginInteractor interactor = new LoginInteractor(webRepository, loginStoreRepository);
-        presenter = new LoginPresenter(interactor,handler);
+//        Handler handler = new Handler();
+//        Gson gson = new Gson();
+//        OkHttpClient client = new OkHttpClient();
+//        LoginWebRepository webRepository = new LoginWebRepository(gson,client);
+//        LoginStoreRepository loginStoreRepository = new LoginStoreRepository(this);
+//        LoginInteractor interactor = new LoginInteractor(webRepository, loginStoreRepository);
+//        presenter = new LoginPresenter(interactor,handler);
+
+        App.get(this).applicationComponent().plus(new LoginModule()).inject(this);
 
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
