@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import com.sheygam.loginarchitectureexample.di.application.AppComponent;
 import com.sheygam.loginarchitectureexample.di.application.AppModule;
 import com.sheygam.loginarchitectureexample.di.application.DaggerAppComponent;
+import com.sheygam.loginarchitectureexample.di.login.LoginComponent;
+import com.sheygam.loginarchitectureexample.di.login.LoginModule;
 
 /**
  * Created by gregorysheygam on 30/12/2017.
@@ -14,6 +16,7 @@ import com.sheygam.loginarchitectureexample.di.application.DaggerAppComponent;
 
 public class App extends Application {
     private AppComponent component;
+    private LoginComponent loginComponent;
 
     public static App get(@NonNull Context context){
         return (App) context.getApplicationContext();
@@ -33,5 +36,16 @@ public class App extends Application {
 
     public AppComponent applicationComponent(){
         return component;
+    }
+
+    public LoginComponent plusLoginModule(LoginModule loginModule){
+        if(loginComponent == null){
+            loginComponent = applicationComponent().plus(loginModule);
+        }
+        return loginComponent;
+    }
+
+    public void clearLoginComponent(){
+        loginComponent = null;
     }
 }

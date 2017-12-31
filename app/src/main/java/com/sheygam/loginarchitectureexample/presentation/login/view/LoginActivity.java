@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 //        LoginInteractor interactor = new LoginInteractor(webRepository, loginStoreRepository);
 //        presenter = new LoginPresenter(interactor,handler);
 
-        App.get(this).applicationComponent().plus(new LoginModule()).inject(this);
+        App.get(this).plusLoginModule(new LoginModule()).inject(this);
 
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
@@ -125,5 +125,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     protected void onStop() {
         presenter.unbindView();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        App.get(this).clearLoginComponent();
+        super.onDestroy();
     }
 }
