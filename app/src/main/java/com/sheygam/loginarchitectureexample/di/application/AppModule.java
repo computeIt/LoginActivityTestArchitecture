@@ -3,6 +3,8 @@ package com.sheygam.loginarchitectureexample.di.application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -34,6 +36,7 @@ public class AppModule {
         return new Retrofit.Builder()
                 .baseUrl("https://telranstudentsproject.appspot.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 }
