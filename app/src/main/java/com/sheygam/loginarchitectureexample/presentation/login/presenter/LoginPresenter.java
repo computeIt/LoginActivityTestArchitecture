@@ -15,11 +15,10 @@ import com.sheygam.loginarchitectureexample.presentation.login.view.ILoginView;
 public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback {
     private ILoginView iLoginView;
     private ILoginInteractor interactor;
-//    private Handler handler;
 
-    public LoginPresenter(ILoginInteractor interactor/*, Handler handler*/) {
+
+    public LoginPresenter(ILoginInteractor interactor) {
         this.interactor = interactor;
-//        this.handler = handler;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
     @Override
     public void makeLogin(String email, String password) {
         try {
-            interactor.login(email,password, this);
+            interactor.login(email, password, this);
             iLoginView.showProgress();
         } catch (PasswordValidException e) {
             iLoginView.invalidPassword();
@@ -47,7 +46,7 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
     @Override
     public void makeRegistration(String email, String password) {
         try {
-            interactor.registration(email,password, this);
+            interactor.registration(email, password, this);
             iLoginView.showProgress();
         } catch (PasswordValidException e) {
             iLoginView.invalidPassword();
@@ -58,27 +57,21 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
 
     @Override
     public void onSuccess() {
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-                if(iLoginView!=null){
-                    iLoginView.hideProgress();
-                    iLoginView.showSuccess("Status OK!");
-                }
-//            }
-//        });
+
+        if (iLoginView != null) {
+            iLoginView.hideProgress();
+            iLoginView.showSuccess("Status OK!");
+        }
+
     }
 
     @Override
     public void onError(final String error) {
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-                if(iLoginView!=null){
-                    iLoginView.hideProgress();
-                    iLoginView.showError(error);
-                }
-//            }
-//        });
+
+        if (iLoginView != null) {
+            iLoginView.hideProgress();
+            iLoginView.showError(error);
+        }
+
     }
 }

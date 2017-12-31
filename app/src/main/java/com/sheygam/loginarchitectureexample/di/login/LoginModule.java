@@ -1,9 +1,7 @@
 package com.sheygam.loginarchitectureexample.di.login;
 
 import android.content.Context;
-import android.os.Handler;
 
-import com.google.gson.Gson;
 import com.sheygam.loginarchitectureexample.business.login.ILoginInteractor;
 import com.sheygam.loginarchitectureexample.business.login.LoginInteractor;
 import com.sheygam.loginarchitectureexample.data.repositories.login.prefstore.ILoginStoreRepository;
@@ -11,13 +9,12 @@ import com.sheygam.loginarchitectureexample.data.repositories.login.web.ILoginWe
 import com.sheygam.loginarchitectureexample.data.repositories.login.prefstore.LoginStoreRepository;
 import com.sheygam.loginarchitectureexample.data.repositories.login.web.LoginApi;
 import com.sheygam.loginarchitectureexample.data.repositories.login.web.LoginRetrofitRepository;
-import com.sheygam.loginarchitectureexample.data.repositories.login.web.LoginWebRepository;
+
 import com.sheygam.loginarchitectureexample.presentation.login.presenter.ILoginPresenter;
 import com.sheygam.loginarchitectureexample.presentation.login.presenter.LoginPresenter;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 /**
@@ -26,29 +23,6 @@ import retrofit2.Retrofit;
 @Module
 public class LoginModule {
 
-//    @Provides
-//    @LoginScope
-//    Gson provideGson(){
-//        return new Gson();
-//    }
-//
-//    @Provides
-//    @LoginScope
-//    Handler provideHandler(){
-//        return new Handler();
-//    }
-//
-//    @Provides
-//    @LoginScope
-//    OkHttpClient provideOkHttpClient(){
-//        return new OkHttpClient();
-//    }
-
-//    @Provides
-//    @LoginScope
-//    ILoginWebRepository provideWebRepository(Gson gson, OkHttpClient client){
-//        return new LoginWebRepository(gson,client);
-//    }
 
     @Provides
     @LoginScope
@@ -70,7 +44,7 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    ILoginPresenter provideLoginPresenter(ILoginInteractor interactor/*, Handler handler*/){
-        return new LoginPresenter(interactor/*,handler*/);
+    ILoginPresenter provideLoginPresenter(ILoginInteractor interactor){
+        return new LoginPresenter(interactor);
     }
 }

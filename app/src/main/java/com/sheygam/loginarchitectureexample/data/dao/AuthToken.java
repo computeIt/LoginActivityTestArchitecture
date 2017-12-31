@@ -26,4 +26,11 @@ public class AuthToken {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "AuthToken{" +
+                "token='" + token + '\'' +
+                '}';
+    }
 }

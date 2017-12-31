@@ -3,7 +3,9 @@ package com.sheygam.loginarchitectureexample.data.repositories.login.web;
 import com.sheygam.loginarchitectureexample.data.dao.Auth;
 import com.sheygam.loginarchitectureexample.data.dao.AuthToken;
 
-import retrofit2.Call;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -13,8 +15,8 @@ import retrofit2.http.POST;
 
 public interface LoginApi {
     @POST("_ah/api/contactsApi/v1/login")
-    Call<AuthToken> login(@Body Auth auth);
+    Single<Response<AuthToken>> login(@Body Auth auth);
 
     @POST("_ah/api/contactsApi/v1/registration")
-    Call<AuthToken> registration(@Body Auth auth);
+    Single<Response<AuthToken>> registration(@Body Auth auth);
 }
