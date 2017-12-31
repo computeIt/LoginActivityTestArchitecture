@@ -1,4 +1,4 @@
-package com.sheygam.loginarchitectureexample.data;
+package com.sheygam.loginarchitectureexample.data.repositories.login.web;
 
 import android.os.AsyncTask;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.sheygam.loginarchitectureexample.data;
+package com.sheygam.loginarchitectureexample.data.repositories.login.prefstore;
 
 /**
  * Created by gregorysheygam on 27/12/2017.

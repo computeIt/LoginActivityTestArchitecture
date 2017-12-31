@@ -1,6 +1,5 @@
 package com.sheygam.loginarchitectureexample.presentation.login.view;
 
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,19 +9,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.sheygam.loginarchitectureexample.App;
 import com.sheygam.loginarchitectureexample.R;
-import com.sheygam.loginarchitectureexample.business.login.LoginInteractor;
-import com.sheygam.loginarchitectureexample.data.LoginStoreRepository;
-import com.sheygam.loginarchitectureexample.data.LoginWebRepository;
 import com.sheygam.loginarchitectureexample.di.login.LoginModule;
 import com.sheygam.loginarchitectureexample.presentation.login.presenter.ILoginPresenter;
-import com.sheygam.loginarchitectureexample.presentation.login.presenter.LoginPresenter;
 
 import javax.inject.Inject;
-
-import okhttp3.OkHttpClient;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView, View.OnClickListener {
     @Inject

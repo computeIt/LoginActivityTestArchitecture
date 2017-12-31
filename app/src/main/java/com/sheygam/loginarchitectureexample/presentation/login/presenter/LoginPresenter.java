@@ -15,11 +15,11 @@ import com.sheygam.loginarchitectureexample.presentation.login.view.ILoginView;
 public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback {
     private ILoginView iLoginView;
     private ILoginInteractor interactor;
-    private Handler handler;
+//    private Handler handler;
 
-    public LoginPresenter(ILoginInteractor interactor, Handler handler) {
+    public LoginPresenter(ILoginInteractor interactor/*, Handler handler*/) {
         this.interactor = interactor;
-        this.handler = handler;
+//        this.handler = handler;
     }
 
     @Override
@@ -58,27 +58,27 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
 
     @Override
     public void onSuccess() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
                 if(iLoginView!=null){
                     iLoginView.hideProgress();
                     iLoginView.showSuccess("Status OK!");
                 }
-            }
-        });
+//            }
+//        });
     }
 
     @Override
     public void onError(final String error) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
                 if(iLoginView!=null){
                     iLoginView.hideProgress();
                     iLoginView.showError(error);
                 }
-            }
-        });
+//            }
+//        });
     }
 }

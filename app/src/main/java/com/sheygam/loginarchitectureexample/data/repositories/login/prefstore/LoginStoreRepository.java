@@ -1,4 +1,4 @@
-package com.sheygam.loginarchitectureexample.data;
+package com.sheygam.loginarchitectureexample.data.repositories.login.prefstore;
 
 import android.content.Context;
 import android.content.SharedPreferences;

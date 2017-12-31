@@ -1,11 +1,18 @@
 package com.sheygam.loginarchitectureexample.data.dao;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by gregorysheygam on 28/12/2017.
  */
 
 public class Auth {
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
     private String password;
 
     public Auth() {

@@ -1,8 +1,8 @@
 package com.sheygam.loginarchitectureexample.business.login;
 
-import com.sheygam.loginarchitectureexample.data.ILoginStoreRepository;
-import com.sheygam.loginarchitectureexample.data.ILoginWebRepository;
-import com.sheygam.loginarchitectureexample.data.ILoginWebRepositoryCallback;
+import com.sheygam.loginarchitectureexample.data.repositories.login.prefstore.ILoginStoreRepository;
+import com.sheygam.loginarchitectureexample.data.repositories.login.web.ILoginWebRepository;
+import com.sheygam.loginarchitectureexample.data.repositories.login.web.ILoginWebRepositoryCallback;
 
 /**
  * Created by gregorysheygam on 27/12/2017.
