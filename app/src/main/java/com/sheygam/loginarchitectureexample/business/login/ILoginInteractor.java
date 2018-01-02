@@ -1,11 +1,14 @@
 package com.sheygam.loginarchitectureexample.business.login;
 
+import io.reactivex.Completable;
+import io.reactivex.Single;
+
 /**
  * Created by gregorysheygam on 27/12/2017.
  */
 
 public interface ILoginInteractor {
 
-    void login(String email, String password, ILoginInteratorCallback callback) throws PasswordValidException,EmailValidException;
-    void registration(String email, String password, ILoginInteratorCallback callback)throws PasswordValidException,EmailValidException;
+    Completable login(String email, String password) throws PasswordValidException,EmailValidException;
+    Completable registration(String email, String password)throws PasswordValidException,EmailValidException;
 }

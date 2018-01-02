@@ -1,18 +1,18 @@
 package com.sheygam.loginarchitectureexample.presentation.login.presenter;
 
-import android.os.Handler;
-
 import com.sheygam.loginarchitectureexample.business.login.EmailValidException;
 import com.sheygam.loginarchitectureexample.business.login.ILoginInteractor;
-import com.sheygam.loginarchitectureexample.business.login.ILoginInteratorCallback;
 import com.sheygam.loginarchitectureexample.business.login.PasswordValidException;
 import com.sheygam.loginarchitectureexample.presentation.login.view.ILoginView;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by gregorysheygam on 27/12/2017.
  */
 
-public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback {
+public class LoginPresenter implements ILoginPresenter {
     private ILoginView iLoginView;
     private ILoginInteractor interactor;
 
@@ -34,8 +34,12 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
     @Override
     public void makeLogin(String email, String password) {
         try {
-            interactor.login(email, password, this);
             iLoginView.showProgress();
+            interactor.login(email,password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onSuccess,throwable -> onError(throwable.getMessage()));
+
         } catch (PasswordValidException e) {
             iLoginView.invalidPassword();
         } catch (EmailValidException e) {
@@ -46,8 +50,14 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
     @Override
     public void makeRegistration(String email, String password) {
         try {
-            interactor.registration(email, password, this);
             iLoginView.showProgress();
+            interactor.registration(email,password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onSuccess,throwable -> {
+                        onError(throwable.getMessage());
+                        throwable.printStackTrace();
+                    });
         } catch (PasswordValidException e) {
             iLoginView.invalidPassword();
         } catch (EmailValidException e) {
@@ -55,7 +65,6 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
         }
     }
 
-    @Override
     public void onSuccess() {
 
         if (iLoginView != null) {
@@ -65,7 +74,6 @@ public class LoginPresenter implements ILoginPresenter, ILoginInteratorCallback 
 
     }
 
-    @Override
     public void onError(final String error) {
 
         if (iLoginView != null) {

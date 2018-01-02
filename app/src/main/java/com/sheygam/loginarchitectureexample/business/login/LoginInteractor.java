@@ -1,11 +1,9 @@
 package com.sheygam.loginarchitectureexample.business.login;
 
-import com.sheygam.loginarchitectureexample.data.dao.AuthToken;
 import com.sheygam.loginarchitectureexample.data.repositories.login.prefstore.ILoginStoreRepository;
 import com.sheygam.loginarchitectureexample.data.repositories.login.web.ILoginWebRepository;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Completable;
 
 /**
  * Created by gregorysheygam on 27/12/2017.
@@ -30,7 +28,7 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     @Override
-    public void login(String email, String password, ILoginInteratorCallback callback) throws PasswordValidException, EmailValidException {
+    public Completable login(String email, String password) throws PasswordValidException, EmailValidException {
         if(!isEmailValid(email)){
             throw new EmailValidException();
         }
@@ -38,23 +36,11 @@ public class LoginInteractor implements ILoginInteractor {
             throw new PasswordValidException();
         }
 
-        webRepository.login(email,password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    if(response.isSuccessful()){
-                        handleSuccess(response.body());
-                        callback.onSuccess();
-                    }else if(response.code() == 401){
-                        callback.onError("Wrong email or password!");
-                    }else{
-                        callback.onError("Server error");
-                    }
-                }, throwable -> callback.onError("Server error"));
+        return webRepository.login(email,password).doOnSuccess(this::saveToPref).toCompletable();
     }
 
     @Override
-    public void registration(String email, String password, ILoginInteratorCallback callback) throws PasswordValidException, EmailValidException {
+    public Completable registration(String email, String password) throws PasswordValidException, EmailValidException {
         if(!isEmailValid(email)){
             throw new EmailValidException();
         }
@@ -62,23 +48,11 @@ public class LoginInteractor implements ILoginInteractor {
             throw new PasswordValidException();
         }
 
-        webRepository.registration(email,password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    if(response.isSuccessful()){
-                        handleSuccess(response.body());
-                        callback.onSuccess();
-                    }else if(response.code() == 409){
-                        callback.onError("User already exist!");
-                    }else{
-                        callback.onError("Server error");
-                    }
-                }, throwable -> callback.onError("Server error"));
+        return webRepository.registration(email,password).doOnSuccess(this::saveToPref).toCompletable();
     }
 
-    private void handleSuccess(AuthToken token){
-        storeRepository.saveToken(token.getToken());
+    private void saveToPref(String s) {
+        storeRepository.saveToken(s);
     }
 
 }

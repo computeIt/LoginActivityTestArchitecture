@@ -3,7 +3,6 @@ package com.sheygam.loginarchitectureexample.data.repositories.login.web;
 import com.sheygam.loginarchitectureexample.data.dao.Auth;
 import com.sheygam.loginarchitectureexample.data.dao.AuthToken;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import retrofit2.Response;
 import retrofit2.http.Body;

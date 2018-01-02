@@ -28,14 +28,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        Handler handler = new Handler();
-//        Gson gson = new Gson();
-//        OkHttpClient client = new OkHttpClient();
-//        LoginWebRepository webRepository = new LoginWebRepository(gson,client);
-//        LoginStoreRepository loginStoreRepository = new LoginStoreRepository(this);
-//        LoginInteractor interactor = new LoginInteractor(webRepository, loginStoreRepository);
-//        presenter = new LoginPresenter(interactor,handler);
-
         App.get(this).plusLoginModule(new LoginModule()).inject(this);
 
         inputEmail = findViewById(R.id.inputEmail);
